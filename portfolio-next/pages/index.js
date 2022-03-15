@@ -5,16 +5,15 @@ import { Navbar } from '../components/Home/Navbar';
 import { Projects } from '../components/Home/Projects';
 import { Skills } from '../components/Home/Skills';
 import { Footer } from '../components/shared/Footer';
-import { getProjects } from '../lib/projects';
 
-export default function Home({ data }) {
+export default function Home() {
   return (
     <>
       <div className="h-6"></div>
       <Navbar/>
       <Header/>
       <About/>
-      <Projects projects={data}/>
+      <Projects/>
       <Skills/>
       <Footer/>
     </>
@@ -22,12 +21,8 @@ export default function Home({ data }) {
 }
 
 export const getServerSideProps = async ({ locale }) => {
-
-  const data = await getProjects();
-
   return {
     props: {
-      data,
       ...(await serverSideTranslations(locale, [])),
     },
   };

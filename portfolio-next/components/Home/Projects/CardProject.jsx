@@ -17,14 +17,16 @@ const hoverVariants = {
 
 const transitionVariants = {
   offscreen: {
-    y: 300
+    y: 1200,
+    opacity: 0
   },
   onscreen: {
     y: 0,
+    opacity: 1,
     transition: {
       type: "spring",
       bounce: 0.2,
-      duration: 1
+      duration: 1.2
     }
   }
 }

@@ -1,17 +1,16 @@
 import { firestore } from '../../../lib/firebase/admin';
 
-const getProjects = (_req, res) => {
-  firestore.collection('projects').get()
-    .then(data => {
-      let projects = [];
-      data.forEach(project => {
-        projects.push({ id: project.id, ...project.data()});
-      });
-      res.status(200).json(projects);
-    })
-    .catch(() => {
-      res.status(404).end();
-    })
-}
+export default async function handler (_req, res) {
+  let projects = [];
+  const data = await firestore.collection('projects').get();
 
-export default getProjects;
+  if (!data) {
+    return res.status(404).json({});
+  }
+
+  data.forEach(project => {
+    projects.push({ id: project.id, ...project.data()});
+  });
+
+  return res.status(200).json({ projects });
+}
